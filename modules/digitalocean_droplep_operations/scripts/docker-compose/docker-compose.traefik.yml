@@ -40,7 +40,6 @@ services:
           - node.role == manager
       labels:
           - traefik.docker.network=traefik_net
-          #- "traefik.frontend.rule=Host:${TARGET_DOMAIN}; PathPrefixStrip: /traefik"
           - "traefik.frontend.rule=Host:traefik.${TARGET_DOMAIN}"
           - traefik.port=8080
           - traefik.backend=traefik
