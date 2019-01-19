@@ -1,0 +1,54 @@
+
+version: "3.3"
+
+services:
+  traefik:
+    image: traefik:alpine
+    command: |-
+      --entryPoints="Name:http Address::80 Redirect.EntryPoint:https"
+      --entryPoints="Name:https Address::443 TLS"
+      --defaultentrypoints="http,https"
+      --logLevel="DEBUG"
+      --accesslogsfile="/var/log/access.log"
+      --insecureSkipVerify=true
+      --acme
+      --acme.acmelogging="true"
+      --acme.email="ptorrezao@globalshares.com"
+      --acme.entrypoint="https"
+      --acme.storage="/acme/acme.json"
+      --acme.onhostrule="true"
+      --acme.httpChallenge.entryPoint="http"
+      --docker
+      --docker.swarmmode
+      --docker.domain="${TARGET_DOMAIN}"
+      --docker.watch
+      --docker.endpoint="unix://var/run/docker.sock"
+      --web
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    networks:
+      - traefik_net
+    volumes:
+      - traefik_acme:/acme/
+      - traefik_logs:/var/log/access.log
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+          - traefik.docker.network=traefik_net
+          #- "traefik.frontend.rule=Host:${TARGET_DOMAIN}; PathPrefixStrip: /traefik"
+          - "traefik.frontend.rule=Host:traefik.${TARGET_DOMAIN}"
+          - traefik.port=8080
+          - traefik.backend=traefik
+
+volumes:
+  traefik_acme:
+  traefik_logs:
+
+networks:
+  traefik_net:
+    external: true

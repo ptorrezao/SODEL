@@ -1,0 +1,36 @@
+
+version: '3'
+
+services:
+  app:
+    image: gitea/gitea
+    links:
+      - db:mysql
+    volumes:
+      - app:/data
+    ports:
+      - "3000:3000"
+    environment:
+      - VIRTUAL_PORT=3000
+    networks:
+      - backend
+  db:
+    container_name: gitea-db
+    restart: always
+    image: mysql:5.6
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    networks:
+      - backend
+
+networks:
+  backend:
+  
+volumes:
+  app:
+  db:

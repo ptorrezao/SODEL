@@ -8,10 +8,10 @@ resource "digitalocean_domain" "default" {
   ip_address = "${digitalocean_droplet.web.ipv4_address}"
 }
 
-resource "digitalocean_record" "www" {
+resource "digitalocean_record" "wildkey" {
   domain = "${digitalocean_domain.default.name}"
   type   = "A"
-  name   = "www"
+  name   = "*"
   value  = "${digitalocean_droplet.web.ipv4_address}"
 }
 
