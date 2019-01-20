@@ -27,14 +27,14 @@ resource "digitalocean_droplet" "web" {
     }
 
     inline = [
-      "sudo chmod +x /tmp/scripts/setup.sh",
+      "sudo docker swarm init --advertise-addr ${digitalocean_droplet.web.ipv4_address}",
+      "sudo chmod +x /tmp/scripts/setup-manager.sh",
       "echo ''TARGET_DOMAIN=${var.domain_name}'' >> /tmp/scripts/docker-compose/.env",
       "echo ''MYSQL_ROOT_PASSWORD=${var.mysql_root_pwd}'' >> /tmp/scripts/docker-compose/.env",
       "echo ''MYSQL_PASSWORD=${var.mysql_pwd}'' >> /tmp/scripts/docker-compose/.env",
       "echo ''MYSQL_DATABASE=${var.mysql_user}'' >> /tmp/scripts/docker-compose/.env",
       "echo ''MYSQL_USER=${var.mysql_db}'' >> /tmp/scripts/docker-compose/.env",
-      "sudo /tmp/scripts/setup.sh",
-      "ls  /tmp -la",
+      "sudo /tmp/scripts/setup-manager.sh",
     ]
   }
 }
