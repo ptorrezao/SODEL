@@ -1,4 +1,4 @@
-# **SODEL** - **So**ftware **De**velopment **L**ab
+# **SODEL** - **So**ftware **De**velopment **L**ab Infrastructure 
 
 Terraform script to provision a Droplet on Digital Ocean with Traefik, Git Server and Portainer
 
