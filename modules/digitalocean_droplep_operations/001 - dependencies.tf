@@ -22,4 +22,3 @@ resource "digitalocean_tag" "terraform_tag" {
 resource "digitalocean_tag" "docker_tag" {
   name = "docker"
 }
-
