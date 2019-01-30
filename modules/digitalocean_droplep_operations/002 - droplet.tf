@@ -29,6 +29,9 @@ resource "digitalocean_droplet" "web" {
 
     inline = [
       "sudo docker swarm init --advertise-addr ${digitalocean_droplet.web.ipv4_address}",
+      "sudo docker node update ${digitalocean_droplet.web.name} --label-add havebackups=true",
+      "sudo docker node update ${digitalocean_droplet.web.name} --label-add bdstorage=true",
+      "sudo docker node update ${digitalocean_droplet.web.name} --label-add volumestorage=true",
       "sudo chmod +x /tmp/scripts/setup-manager.sh",
       "echo ''TARGET_DOMAIN=${var.domain_name}'' >> /tmp/scripts/docker-compose/.env",
       "echo ''MYSQL_ROOT_PASSWORD=${var.mysql_root_pwd}'' >> /tmp/scripts/docker-compose/.env",

@@ -1,4 +1,3 @@
-
 version: '3'
 
 services:
@@ -11,9 +10,24 @@ services:
     environment:
       - VIRTUAL_PORT=3000
       - APP_NAME="Stigma Software Development"
+      - RUN_MODE=prod
       - ROOT_URL=https://git.stigma.pw/
+      - DB_TYPE=mysql
+      - DB_HOST=db
+      - DB_NAME=${MYSQL_USER}
+      - DB_PASSWD=${MYSQL_PASSWORD}
+      - INSTALL_LOCK=true
+      - DISABLE_REGISTRATION=true
+      - REQUIRE_SIGNIN_VIEW=true
+      - SECRET_KEY=qpaEb65Avat4ANMa21vag
     networks:
       - backend
+    deploy:
+      placement:
+        constraints: 
+          - engine.labels.bdstorage == true
+          - engine.labels.havebackups == true
+          - node.role == manager
   db:
     container_name: gitea-db
     restart: always
@@ -27,10 +41,15 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     networks:
       - backend
-
+    deploy:
+      placement:
+        constraints: 
+          - engine.labels.bdstorage == true
+          - engine.labels.havebackups == true
+          - node.role == manager
 networks:
   backend:
-  
+
 volumes:
   app:
   db:
