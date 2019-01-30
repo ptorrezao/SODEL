@@ -10,6 +10,8 @@ services:
       - app:/data
     environment:
       - VIRTUAL_PORT=3000
+      - APP_NAME="Stigma Software Development"
+      - ROOT_URL=https://git.stigma.pw/
     networks:
       - backend
   db:
