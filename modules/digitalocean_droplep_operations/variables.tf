@@ -6,3 +6,5 @@ variable "mysql_root_pwd" {}
 variable "mysql_pwd" {}
 variable "mysql_user" {}
 variable "mysql_db" {}
+variable "registry_user" {}
+variable "registry_user_pwd" {}

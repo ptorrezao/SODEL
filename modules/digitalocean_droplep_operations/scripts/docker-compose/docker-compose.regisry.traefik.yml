@@ -1,0 +1,29 @@
+version: '3.2'
+
+services:
+  registry:
+    networks:
+      - traefik_net
+    deploy:
+      labels:
+        - traefik.docker.network=traefik_net
+        - "traefik.frontend.rule=Host:registry.${TARGET_DOMAIN}"
+        - traefik.port=5000
+        - traefik.protocol=http
+        - traefik.backend=registry
+        - traefik.frontend.auth.basic=${registry_user}:${registry_user_pwd}
+
+  registry-ui:
+    networks:
+      - traefik_net
+    deploy:
+      labels:
+        - traefik.docker.network=traefik_net
+        - "traefik.frontend.rule=Host:registryui.${TARGET_DOMAIN}"
+        - traefik.port=80
+        - traefik.protocol=http
+        - traefik.backend=registryui
+        - traefik.frontend.auth.basic=${registry_user}:${registry_user_pwd}
+networks:
+  traefik_net:
+    external: true

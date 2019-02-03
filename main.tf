@@ -6,6 +6,8 @@ variable "mysql_root_pwd" {}
 variable "mysql_pwd" {}
 variable "mysql_user" {}
 variable "mysql_db" {}
+variable "registry_user" {}
+variable "registry_user_pwd" {}
 
 module "vm" {
   source              = "modules/digitalocean_droplep_operations"
@@ -17,4 +19,7 @@ module "vm" {
   mysql_pwd           = "${var.mysql_pwd}"
   mysql_user          = "${var.mysql_user}"
   mysql_db            = "${var.mysql_db}"
+  registry_user       = "${var.registry_user}"
+  registry_user_pwd   = "${var.registry_user_pwd}"
 }
+

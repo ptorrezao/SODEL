@@ -25,8 +25,6 @@ services:
     deploy:
       placement:
         constraints: 
-          - engine.labels.bdstorage == true
-          - engine.labels.havebackups == true
           - node.role == manager
   db:
     container_name: gitea-db
@@ -44,8 +42,6 @@ services:
     deploy:
       placement:
         constraints: 
-          - engine.labels.bdstorage == true
-          - engine.labels.havebackups == true
           - node.role == manager
 networks:
   backend:

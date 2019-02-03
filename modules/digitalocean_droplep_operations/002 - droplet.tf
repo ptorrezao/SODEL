@@ -38,6 +38,8 @@ resource "digitalocean_droplet" "web" {
       "echo ''MYSQL_PASSWORD=${var.mysql_pwd}'' >> /tmp/scripts/docker-compose/.env",
       "echo ''MYSQL_DATABASE=${var.mysql_user}'' >> /tmp/scripts/docker-compose/.env",
       "echo ''MYSQL_USER=${var.mysql_db}'' >> /tmp/scripts/docker-compose/.env",
+      "echo ''registry_user=${var.registry_user}'' >> /tmp/scripts/docker-compose/.env",
+      "echo ''registry_user_pwd=${var.registry_user_pwd}'' >> /tmp/scripts/docker-compose/.env",
       "sudo /tmp/scripts/setup-manager.sh",
     ]
   }

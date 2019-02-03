@@ -43,6 +43,7 @@ services:
           - "traefik.frontend.rule=Host:traefik.${TARGET_DOMAIN}"
           - traefik.port=8080
           - traefik.backend=traefik
+          - traefik.frontend.auth.basic=${registry_user}:${registry_user_pwd}
 
 volumes:
   traefik_acme:

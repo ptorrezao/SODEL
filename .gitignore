@@ -3,3 +3,4 @@ keys/*
 .terraform/*
 terraform*
 !keys/id_rsa.pub
+.env
