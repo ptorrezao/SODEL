@@ -1,0 +1,16 @@
+version: '3.2'
+
+services:
+  jenkins:
+    networks:
+      - traefik_net
+    deploy:
+      labels:
+        - traefik.docker.network=traefik_net
+        - "traefik.frontend.rule=Host:jenkins.${TARGET_DOMAIN}"
+        - traefik.port=8080
+        - traefik.protocol=http
+        - traefik.backend=jenkins
+networks:
+  traefik_net:
+    external: true
