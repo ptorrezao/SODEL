@@ -13,7 +13,7 @@ services:
       --insecureSkipVerify=true
       --acme
       --acme.acmelogging="true"
-      --acme.email="ptorrezao@globalshares.com"
+      --acme.email="****"
       --acme.entrypoint="https"
       --acme.storage="/acme/acme.json"
       --acme.onhostrule="true"
